@@ -2,6 +2,13 @@ import os
 import subprocess
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+import logging
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 
 class ChangeHandler(FileSystemEventHandler):
     def on_modified(self, event):
@@ -14,16 +21,16 @@ class ChangeHandler(FileSystemEventHandler):
         subprocess.call(['mkdocs', 'build', '--clean'])
 
 
-if __name__ == "__main__":
-    os.chdir('/app')
 
+os.chdir('/app')
 
+logger.info(f"Files: \n {(os.listdir('docs'))}")
 
-    observer = Observer()
-    event_handler = ChangeHandler()
-    observer.schedule(event_handler, path="docs", recursive=True)
-    observer.start()
-    try:
-        observer.join()
-    except KeyboardInterrupt:
-        observer.stop()
+observer = Observer()
+event_handler = ChangeHandler()
+observer.schedule(event_handler, path="docs", recursive=True)
+observer.start()
+try:
+    observer.join()
+except KeyboardInterrupt:
+    observer.stop()
