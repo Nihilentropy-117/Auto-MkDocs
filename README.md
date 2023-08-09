@@ -2,10 +2,6 @@
 
 Auto-MkDocs is a Docker-based application that automatically regenerates and serves your MkDocs site whenever changes are detected in your markdown documents, as a more stable replacement for the built-in testing server. It does not refresh the page in browser for now, due to performance concerns for little real-world gain.
 
-## Requirements
-
-- Docker (Tested with version 19.03.8)
-- Docker Compose (Tested with version 1.25.4)
 ## How It Works
 
 Auto-MkDocs consists of two Docker services:
