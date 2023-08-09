@@ -23,11 +23,9 @@ class ChangeHandler(FileSystemEventHandler):
             self.schedule_recompile()
 
     def schedule_recompile(self):
-        # If there is an active timer, cancel it
         if self.timer:
             self.timer.cancel()
 
-        # Start a new timer
         self.timer = threading.Timer(5.0, self.recompile_site)
         self.timer.start()
 
