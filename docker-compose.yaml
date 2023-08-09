@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mkdocs_watcher:
+    build:
+      context: .
+      dockerfile: Dockerfile.watcher
+    volumes:
+      - ./docs:/app/docs
+      - temp-site-volume:/app/site
+      - ./mkdocs.yml:/app/mkdocs.yml
+
+  mkdocs_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./docs:/app/docs
+      - temp-site-volume:/app/site
+      - ./mkdocs.yml:/app/mkdocs.yml
+
+volumes:
+  temp-site-volume:
